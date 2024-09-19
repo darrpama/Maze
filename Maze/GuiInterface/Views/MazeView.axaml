@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GuiInterface.ViewModels"
+             xmlns:controls="clr-namespace:GuiInterface.Controls"
+             xmlns:models="clr-namespace:MazeModel.MazeGenerator;assembly=MazeModel"
+             mc:Ignorable="d" d:DesignWidth="510" d:DesignHeight="450"
+             x:DataType="vm:MazeViewModel"
+             x:Class="GuiInterface.Views.MazeView">
+    <Grid Margin="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto">
+        <controls:MazeControl Height="500" Width="500" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0"
+                              Maze="{Binding Maze}" />
+
+
+        <Button Grid.Column="0" Grid.Row="1"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Command="{Binding GenerateMazeCommand}">
+            Generate maze
+        </Button>
+        <TextBlock HorizontalAlignment="Center" FontSize="20" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">Size</TextBlock>
+
+        <NumericUpDown Value="{Binding Rows}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="0"
+                       Grid.Row="3" Increment="1">
+        </NumericUpDown>
+        <NumericUpDown Value="{Binding Columns}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="1"
+                       Grid.Row="3" Increment="1">
+        </NumericUpDown>
+
+        <Button Grid.Column="0" Grid.Row="4"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Command="{Binding ImportMazeFromFileCommand}">
+            Import
+        </Button>
+        <Button Grid.Column="1" Grid.Row="4"
+                HorizontalAlignment="Stretch"
+                HorizontalContentAlignment="Center"
+                Command="{Binding ExportMazeToFileCommand}">
+            Export
+        </Button>
+
+
+    </Grid>
+</UserControl>

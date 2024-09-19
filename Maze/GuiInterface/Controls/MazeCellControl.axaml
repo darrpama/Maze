@@ -1,0 +1,22 @@
+<Styles xmlns:local="clr-namespace:GuiInterface.Controls"
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:DataType="local:MazeCellControl">
+    <Design.PreviewWith>
+        <local:MazeCellControl />
+    </Design.PreviewWith>
+
+    <Style Selector="local|MazeCellControl">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="{DynamicResource ButtonBackground}" BorderBrush="Black"
+                        BorderThickness="{TemplateBinding InternalBorderThickness}" >
+                    <Ellipse Margin="1" IsVisible="{TemplateBinding IsCircleVisible}" Fill="{TemplateBinding PathPartCircleColor}"></Ellipse>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="local|MazeCellControl:pointerover /template/ Border">
+        <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPointerOver}"></Setter>
+    </Style>
+</Styles>
