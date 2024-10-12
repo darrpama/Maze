@@ -9,6 +9,15 @@
         Icon="/Assets/avalonia-logo.ico"
         Title="Maze"
         Width="600"
-        Height="600"
-        Content="{Binding ContentViewModel}">
+        Height="600">
+        <TabControl>
+            <TabItem Header="Maze"
+                Content="{Binding MazeContentViewModel}">
+            </TabItem>
+            
+            <TabItem Header="Cave"
+                Content="{Binding CaveContentViewModel}">
+            </TabItem>
+            
+        </TabControl>
 </Window>
