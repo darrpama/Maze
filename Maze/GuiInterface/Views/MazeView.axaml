@@ -8,12 +8,25 @@
              mc:Ignorable="d" d:DesignWidth="510" d:DesignHeight="450"
              x:DataType="vm:MazeViewModel"
              x:Class="GuiInterface.Views.MazeView">
-    <Grid Margin="10" RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,Auto">
-        <controls:MazeControl Height="500" Width="500" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0"
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>    
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+            
+        <controls:MazeControl Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0"
                               Maze="{Binding Maze}" />
 
-
-        <Button Grid.Column="0" Grid.Row="1"
+        <Button Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding GenerateMazeCommand}">

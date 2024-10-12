@@ -3,10 +3,12 @@
         xmlns:vm="using:GuiInterface.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="510" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="600"
         x:Class="GuiInterface.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Maze"
+        Width="600"
+        Height="600"
         Content="{Binding ContentViewModel}">
 </Window>
