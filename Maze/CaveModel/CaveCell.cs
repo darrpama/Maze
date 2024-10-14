@@ -16,8 +16,7 @@ public record CaveCell
     private bool _isAlive = false;
     public bool IsAlive
     {
-        get => _isAlive
-        ;
+        get => _isAlive;
         private set
         {
             _isAlive = value;
