@@ -1,6 +1,6 @@
 namespace CaveModel;
 
-public record CaveCell
+public sealed class CaveCell: ICloneable, IEquatable<CaveCell>
 {
     public CaveCell()
     {
@@ -13,7 +13,7 @@ public record CaveCell
     }
     public event EventHandler<bool>? AliveHasSet;
 
-    private bool _isAlive = false;
+    private bool _isAlive;
     public bool IsAlive
     {
         get => _isAlive;
@@ -34,8 +34,20 @@ public record CaveCell
     public void MakeDeath() => IsAlive = false;
 
 
-    protected virtual void OnAliveHasSet(bool value)
+    private void OnAliveHasSet(bool value)
     {
         AliveHasSet?.Invoke(this, value);
+    }
+
+    public object Clone()
+    {
+        return new CaveCell(IsAlive);
+    }
+
+    public bool Equals(CaveCell? other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return _isAlive == other._isAlive;
     }
 }

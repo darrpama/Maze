@@ -21,8 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\CaveModel\CaveModel.csproj" />
       <ProjectReference Include="..\MazeModel\MazeModel.csproj" />
-      <ProjectReference Include="..\Common\NumbersGenerator.csproj" />
     </ItemGroup>
 
 </Project>
