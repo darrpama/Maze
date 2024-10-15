@@ -22,9 +22,12 @@ public class StringCaveImporter
 
         var sizeLine = linesEnumerator.Current;
         var size = GetSize(sizeLine);
-        if (size.Item1 > 50 || size.Item2 > 50)
+        if (
+            size.Item1 > 50 || size.Item2 > 50 ||
+            size.Item1 < 1 || size.Item2 < 1
+            )
         {
-            throw new ImportCaveError("The file size is too large.");
+            throw new ImportCaveError("The file size is incorrect (must be from 1 to 50).");
         }
 
         var cave = new CaveCell[size.Item1, size.Item2];

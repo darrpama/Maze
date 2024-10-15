@@ -21,7 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Model\Model.csproj" />
+      <ProjectReference Include="..\CaveModel\CaveModel.csproj" />
+      <ProjectReference Include="..\MazeModel\MazeModel.csproj" />
     </ItemGroup>
 
 </Project>
