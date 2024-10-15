@@ -74,32 +74,56 @@ public class Cave
     public void Step()
     {
         ArgumentNullException.ThrowIfNull(Cells, "Cells is null");
+        var cellsCopy = CopyCells();
+        
         for (var row = 0; row < Rows; row++)
         {
             for (var col = 0; col < Cols; col++)
             {
                 if (Cells[row, col].IsAlive)
                 {
-                    if (GetDeathCount(row, col) > DeathLimit)
-                        Cells[row, col].MakeDeath();
+                    if (GetAliveCount(row, col) < DeathLimit)
+                        cellsCopy[row, col].MakeDeath();
                 }
                 else
                 {
                     if (GetAliveCount(row, col) > LifeLimit)
-                        Cells[row, col].MakeAlive();
+                        cellsCopy[row, col].MakeAlive();
                 }
             }
         }
-        
-    }
-    
-    private int GetDeathCount(int row, int col)
-    {
-        const int cellsAroundCell = 8;
-        
-        return cellsAroundCell - GetAliveCount(row, col);
+        SetCellsByCopy(cellsCopy);
     }
 
+    private void SetCellsByCopy(CaveCell[,] cellsCopy)
+    {
+        ArgumentNullException.ThrowIfNull(Cells, "Cells is null");
+
+        for (var row = 0; row < Rows; row++)
+        {
+            for (var col = 0; col < Cols; col++)
+            {
+                Cells[row, col].SetAlive(cellsCopy[row, col].IsAlive);
+            }
+        }
+    }
+
+    public CaveCell[,] CopyCells()
+    {
+        ArgumentNullException.ThrowIfNull(Cells, "Cells is null");
+
+        var copy = new CaveCell?[Rows, Cols];
+        for (var row = 0; row < Cells.GetLength(0); row++)
+        {
+            for (var col = 0; col < Cells.GetLength(1); col++)
+            {
+                copy[row, col] = Cells[row, col].Clone() as CaveCell;
+            }
+        }
+
+        return copy;
+    }
+    
     private int GetAliveCount(int row, int col)
     {
         return new List<bool>
@@ -134,5 +158,12 @@ public class Cave
         Cells = importer.Import();
         Rows = Cells.GetLength(0);
         Cols = Cells.GetLength(1);
+    }
+
+    public static Cave FromString(string caveString)
+    {
+        var cave = new Cave();
+        cave.ImportString(caveString);
+        return cave;
     }
 }
