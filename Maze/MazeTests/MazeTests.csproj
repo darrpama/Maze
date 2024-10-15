@@ -22,7 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MazeModel\MazeModel.csproj" />
-      <ProjectReference Include="..\Common\NumbersGenerator.csproj" />
+       <ProjectReference Include="..\Common\Common.csproj" />
     </ItemGroup>
 
 </Project>
