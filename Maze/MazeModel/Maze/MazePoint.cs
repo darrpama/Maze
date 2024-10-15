@@ -24,7 +24,7 @@ public class MazePoint
 
     public MazePoint? Previous = null;
 
-    public MazePoint(bool down, bool right, int row , int col)
+    public MazePoint(bool down, bool right, int row, int col)
     {
         Down = down;
         Right = right;

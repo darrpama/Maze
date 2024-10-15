@@ -16,8 +16,7 @@ public sealed class CaveCell: ICloneable, IEquatable<CaveCell>
     private bool _isAlive;
     public bool IsAlive
     {
-        get => _isAlive
-        ;
+        get => _isAlive;
         private set
         {
             _isAlive = value;
