@@ -4,6 +4,8 @@ namespace CaveModel;
 
 public class Cave
 {
+    public event EventHandler<CaveCell[,]>? ChangeCave;
+    
     private int _rows = 1;
     public int Rows
     {
@@ -160,10 +162,20 @@ public class Cave
         Cols = Cells.GetLength(1);
     }
 
+    public string ExportString()
+    {
+        if (Cells == null) throw new ArgumentNullException(nameof(Cells));
+        // var exporter = new CaveStringExporter();
+        // return exporter.Export(Cells);
+        return "Aboba";
+    }
+
     public static Cave FromString(string caveString)
     {
         var cave = new Cave();
         cave.ImportString(caveString);
         return cave;
     }
+    
+    
 }
