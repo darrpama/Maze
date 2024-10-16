@@ -4,11 +4,14 @@ namespace CaveModel;
 
 public class Cave
 {
-    public event EventHandler<CaveCell[,]>? ChangeCave;
 
-    private void OnChangeCave(CaveCell[,] cells)
+    public Cave()
     {
-        ChangeCave?.Invoke(this, cells);
+        
+    }
+    public Cave(IGenerator generator)
+    {
+        GenerateInitial(generator);
     }
     
     private int _rows = 1;
@@ -71,7 +74,6 @@ public class Cave
         if (value < min || value > max)
             throw new ArgumentOutOfRangeException($"Value must be between {min} and {max}.");
     }
-
 
     public void GenerateInitial(IGenerator generator)
     {
@@ -191,5 +193,10 @@ public class Cave
         return cave;
     }
     
-    
+    public event EventHandler<CaveCell[,]>? ChangeCave;
+
+    private void OnChangeCave(CaveCell[,] cells)
+    {
+        ChangeCave?.Invoke(this, cells);
+    }
 }

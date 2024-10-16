@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.JavaScript;
 using Avalonia;
@@ -39,7 +40,7 @@ public class CaveControl : TemplatedControl
     private List<Control> _getRectangles()
     {
         var rectangles = new List<Control>();
-        for (var row = 0; row < Cave.Cells.GetLength(0); row++)
+        for (var row = 0; row < Cave.Cells!.GetLength(0); row++)
         {
             for (var col = 0; col < Cave.Cells.GetLength(1); col++)
             {

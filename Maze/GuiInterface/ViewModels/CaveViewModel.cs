@@ -14,10 +14,11 @@ using CaveModel;
 public class CaveViewModel : ViewModelBase
 {
     private Cave _cave;
+
     public Cave Cave
     {
-        get => _cave;
-        private set => _cave = value;
+        get;
+        private set;
     }
 
     private CaveCell[,]? _caveCells;
@@ -37,16 +38,12 @@ public class CaveViewModel : ViewModelBase
 
     public CaveViewModel()
     {
-        Cave = new Cave();
-        Cave.ChangeCave += _onCaveChanged;
-        
-        Size = MaxSize;
-        Cave.Rows = MaxSize;
-        Cave.Cols = MaxSize;
-        
         var random = new Random();
         var randomGenerator = new RandomGenerator(random);
-        Cave.GenerateInitial(randomGenerator);
+        var cave = new Cave(randomGenerator);
+        Cave = cave;
+        
+        Cave.ChangeCave += _onCaveChanged;
         
         GenerateCaveCommand = ReactiveCommand.Create(GenerateCave);
         ImportCaveFromFileCommand = ReactiveCommand.CreateFromTask(ImportCave);
@@ -56,14 +53,11 @@ public class CaveViewModel : ViewModelBase
     private void _onCaveChanged(object? cave, CaveCell[,] cells)
     {
         CaveCells = cells;
-        Console.WriteLine("A");
     }
 
     private void GenerateCave()
     {
-        var random = new Random();
-        var randomGenerator = new RandomGenerator(random);
-        Cave.GenerateInitial(randomGenerator);
+        Cave.GenerateInitial(new RandomGenerator(new Random()));
     }
 
     private readonly Interaction<string?, string?> _importCaveInteraction;
