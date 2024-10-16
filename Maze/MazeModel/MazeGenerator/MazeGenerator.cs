@@ -9,7 +9,6 @@ public class MazeGenerator
     public MazeGenerator(IGenerator generator)
     {
         _generator = generator;
-
     }
 
     public MazePoint[,] Generate(int rows, int cols)
@@ -31,7 +30,6 @@ public class MazeGenerator
             {
                 CopyFillingRowToMaze(row, maze, i);
                 PrepareRowForNextStep(row, ref setCounter);
-                
             }
             else
             {
@@ -66,17 +64,14 @@ public class MazeGenerator
         for (var i = 0; i < row.Length; i++)
         {
             row[i].Item2.Down = true;
-            
         }
     }
 
     private void PrepareRowForNextStep((int, MazePoint)[] row, ref int setCounter)
     {
-        
         RemoveRightWalls(row);
         ClearSetWhereDownWalls(row);
         FillEmptySets(row, ref setCounter);
-        
     }
 
     private void FillEmptySets((int, MazePoint)[] row, ref int setCounter)
@@ -135,7 +130,6 @@ public class MazeGenerator
             {
                 row[i].Item2.Down = true;
             }
-
         }
     }
 
@@ -154,7 +148,6 @@ public class MazeGenerator
                 row[i].Item2.Right = true;
                 continue;
             }
-
 
             JoinSets(row, row[i].Item1, row[i + 1].Item1);
         }

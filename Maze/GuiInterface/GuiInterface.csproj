@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MazeModel\MazeModel.csproj" />
+      <ProjectReference Include="..\CaveModel\CaveModel.csproj" />
     </ItemGroup>
 
     <ItemGroup>
