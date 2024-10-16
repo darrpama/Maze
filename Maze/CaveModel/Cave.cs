@@ -5,6 +5,11 @@ namespace CaveModel;
 public class Cave
 {
     public event EventHandler<CaveCell[,]>? ChangeCave;
+
+    private void OnChangeCave(CaveCell[,] cells)
+    {
+        ChangeCave?.Invoke(this, cells);
+    }
     
     private int _rows = 1;
     public int Rows
@@ -50,7 +55,16 @@ public class Cave
         }
     }
     
-    public CaveCell[,]? Cells { get; private set; }
+    private CaveCell[,]? _caveCells;
+    public CaveCell[,]? Cells
+    {
+        get => _caveCells;
+        private set
+        {
+            _caveCells = value;
+            if (_caveCells != null) OnChangeCave(_caveCells);
+        }
+    }
 
     private void RangeValidate(int value, int min, int max)
     {

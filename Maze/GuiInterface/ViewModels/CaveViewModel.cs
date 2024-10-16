@@ -38,22 +38,25 @@ public class CaveViewModel : ViewModelBase
     public CaveViewModel()
     {
         Cave = new Cave();
+        Cave.ChangeCave += _onCaveChanged;
+        
+        Size = MaxSize;
+        Cave.Rows = MaxSize;
+        Cave.Cols = MaxSize;
+        
         var random = new Random();
         var randomGenerator = new RandomGenerator(random);
         Cave.GenerateInitial(randomGenerator);
-
-        Cave.ChangeCave += _onCaveChanged;
         
         GenerateCaveCommand = ReactiveCommand.Create(GenerateCave);
         ImportCaveFromFileCommand = ReactiveCommand.CreateFromTask(ImportCave);
         ExportCaveToFileCommand = ReactiveCommand.CreateFromTask(ExportCave);
-        
-        Size = MaxSize;
     }
 
     private void _onCaveChanged(object? cave, CaveCell[,] cells)
     {
         CaveCells = cells;
+        Console.WriteLine("A");
     }
 
     private void GenerateCave()
