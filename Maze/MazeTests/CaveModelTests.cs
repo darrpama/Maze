@@ -70,4 +70,22 @@ public class CaveModelTests
 
         Assert.Equal(cave.Cells, expectedCave.Cells);
     }
+    
+    [Fact]
+    public void Given_RandomGenerate_When_FourthRowsAndColsAsParameter_Then_CallGenerateInitialReturnsRightCave()
+    {
+        IGenerator generator = new RandomGenerator(random:new Random());
+        var cave = new Cave { Rows = 4, Cols = 4 };
+        cave.GenerateInitial(generator);
+        Assert.Equal(4, cave.Cells?.GetLength(0));
+        Assert.Equal(4, cave.Cells?.GetLength(1));
+        // for (var i = 0; i < cave.Cells?.GetLength(0); i++)
+        // {
+        //     for (var j = 0; j < cave.Cells?.GetLength(1); j++)
+        //     {
+        //         Console.Write($"{cave.Cells[i, j].IsAlive}");
+        //     }
+        //     Console.WriteLine();
+        // }
+    }
 }
