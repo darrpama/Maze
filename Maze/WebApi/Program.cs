@@ -11,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IGenerator, RandomGenerator>(_ => new RandomGenerator(new Random()));
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -28,7 +29,21 @@ app.MapPost("/maze/generate", (int rows, int cols, IGenerator generator) =>
     {
         var maze = new Maze(generator);
         maze.Generate(rows, cols);
-        return maze.ExportString();
+        var exportMaze = new List<List<MazeCellWalls>>();
+        for (var i = 0; i < rows; i++)
+        {
+            var row = new List<MazeCellWalls>();
+            for (var j = 0; j < cols; j++)
+            {
+                var point = maze.Points[i, j];
+
+                row.Add(new MazeCellWalls(point.Right, point.Down));
+            }
+
+            exportMaze.Add(row);
+        }
+
+        return exportMaze;
     })
     .WithName("GenerateMaze")
     .WithOpenApi();
@@ -40,7 +55,6 @@ app.MapPost("/maze/findPath",
             try
             {
                 maze.ImportString(mazeString);
-
             }
             catch (ImportMazeError e)
             {
@@ -48,14 +62,22 @@ app.MapPost("/maze/findPath",
                 errorDictionary["mazeString"] = [e.Message];
                 return Results.ValidationProblem(errorDictionary);
             }
+
             maze.StartPoint = maze.Points[sourceX, sourceY];
             maze.EndPoint = maze.Points[destX, destY];
             maze.BuildPath();
             var result = maze.Path.Select(item => new MazeCellCoords(item.Row, item.Col));
             return Results.Ok(result);
-
         })
     .WithName("MazeFindPath")
     .WithOpenApi();
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors(corsPolicyBuilder => corsPolicyBuilder
+        .AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+    );
+}
 
 app.Run();
