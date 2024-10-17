@@ -65,7 +65,6 @@ public class Cave
         private set
         {
             _caveCells = value;
-            if (_caveCells != null) OnChangeCave(_caveCells);
         }
     }
 

@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using CaveModel;
 
 namespace GuiInterface.Controls;
 
@@ -9,13 +10,21 @@ public class CaveCellControl : TemplatedControl
     public int Row { get; }
 
     public int Col { get; }
-    public CaveCellControl(int row, int col, bool isAlive)
+    public CaveCell Cell { get; }
+    public CaveCellControl(int row, int col, CaveCell cell)
     {
         Row = row;
         Col = col;
-        IsCellVisible = isAlive;
+        Cell = cell;
+        Cell.AliveHasSet += OnAliveHasSet;
     }
-    
+
+    private void OnAliveHasSet(object? sender, bool e)
+    {
+        var cell = sender as CaveCell;
+        IsCellVisible = cell.IsAlive;
+    }
+
     public bool IsCellVisible
     {
         get => GetValue(IsCellVisibleProperty);

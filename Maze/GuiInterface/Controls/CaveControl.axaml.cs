@@ -48,7 +48,7 @@ public class CaveControl : TemplatedControl
             for (var col = 0; col < cells.GetLength(1); col++)
             {
                 var cell = cells[row, col];
-                var rect = new CaveCellControl(row, col, cell.IsAlive);
+                var rect = new CaveCellControl(row, col, cell);
                 Grid.SetRow(rect, row);
                 Grid.SetColumn(rect, col);
                 rectangles.Add(rect);

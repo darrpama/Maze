@@ -63,11 +63,11 @@ public class CaveViewModel : ViewModelBase
 
     private void GenerateCave()
     {
-        Cave.GenerateInitial(new RandomGenerator(new Random()));
         Cave.Cols = Size;
         Cave.Rows = Size;
         Cave.LifeLimit = LifeLimit;
         Cave.DeathLimit = DeathLimit;
+        Cave.GenerateInitial(new RandomGenerator(new Random()));
     }
 
     private readonly Interaction<string?, string?> _importCaveInteraction;
