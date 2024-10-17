@@ -15,46 +15,56 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>    
         
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-            
-        <controls:MazeControl Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0"
+        <controls:MazeControl Grid.Column="0" Grid.Row="0" Height="500" Width="500"
                               Maze="{Binding Maze}" />
 
-        <Button Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1"
+        <Button Grid.Column="0" Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 HorizontalContentAlignment="Center"
                 Command="{Binding GenerateMazeCommand}">
             Generate maze
         </Button>
         
-        <TextBlock HorizontalAlignment="Center" FontSize="20" Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0">Size</TextBlock>
 
-        <NumericUpDown Value="{Binding Rows}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="0"
-                       Grid.Row="3" Increment="1">
-        </NumericUpDown>
+        <Grid Grid.Row="2" ColumnDefinitions="3*,*,*">
+            <TextBlock  Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="15">
+                Size of maze
+            </TextBlock>
+            <NumericUpDown Value="{Binding Rows}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="1"
+                           Increment="1"
+                           FontSize="10"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center">
+            </NumericUpDown>
+            
+            <NumericUpDown Value="{Binding Columns}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="2"
+                           Increment="1"
+                           FontSize="10"
+                           HorizontalContentAlignment="Center"
+                           VerticalContentAlignment="Center">
+            </NumericUpDown>
+        </Grid>
         
-        <NumericUpDown Value="{Binding Columns}" Minimum="1" Maximum="{Binding MaxSize, Mode=OneWay}" Grid.Column="1"
-                       Grid.Row="3" Increment="1">
-        </NumericUpDown>
+        <Grid Grid.Row="3" ColumnDefinitions="*,*">
+            <Button Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding ImportMazeFromFileCommand}">
+                Import
+            </Button>
+            
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding ExportMazeToFileCommand}">
+                Export
+            </Button>
+        </Grid>
 
-        <Button Grid.Column="0" Grid.Row="4"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding ImportMazeFromFileCommand}">
-            Import
-        </Button>
-        
-        <Button Grid.Column="1" Grid.Row="4"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Center"
-                Command="{Binding ExportMazeToFileCommand}">
-            Export
-        </Button>
     </Grid>
 </UserControl>

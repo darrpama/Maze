@@ -15,7 +15,6 @@ using CaveModel;
 public class CaveViewModel : ViewModelBase
 {
     private Cave _cave;
-
     public Cave Cave
     {
         get;
@@ -28,7 +27,12 @@ public class CaveViewModel : ViewModelBase
         get => _caveCells;
         set => this.RaiseAndSetIfChanged(ref _caveCells, value);
     }
-
+    
+    public int LifeLimit { get; set; }
+    public int DeathLimit { get; set; }
+    public int MaxSize { get; } = 50;
+    public int Size { get; set; }
+    
     
     public ReactiveCommand<Unit, Unit> GenerateCaveCommand { get; }
     
@@ -47,21 +51,23 @@ public class CaveViewModel : ViewModelBase
         GenerateCaveCommand = ReactiveCommand.Create(GenerateCave);
         ImportCaveFromFileCommand = ReactiveCommand.CreateFromTask(ImportCave);
         ExportCaveToFileCommand = ReactiveCommand.CreateFromTask(ExportCave);
+        Size = MaxSize;
+        LifeLimit = 3;
+        DeathLimit = 3;
     }
 
     private void _onCaveChanged(object? cave, CaveCell[,] cells)
     {
-        Console.WriteLine("Cave changed");
         CaveCells = cells;
     }
 
     private void GenerateCave()
     {
+        Cave.GenerateInitial(new RandomGenerator(new Random()));
         Cave.Cols = Size;
         Cave.Rows = Size;
         Cave.LifeLimit = LifeLimit;
         Cave.DeathLimit = DeathLimit;
-        Cave.GenerateInitial(new RandomGenerator(new Random()));
     }
 
     private readonly Interaction<string?, string?> _importCaveInteraction;
@@ -71,10 +77,6 @@ public class CaveViewModel : ViewModelBase
     public Interaction<string?, string?> ImportCaveInteraction => _importCaveInteraction;
     
     public Interaction<string?, string?> ExportCaveInteraction => _exportCaveInteraction;
-    public int LifeLimit { get; }
-    public int DeathLimit { get; }
-    public int MaxSize { get; } = 50;
-    public int Size { get; set; }
 
     private async Task ImportCave()
     {

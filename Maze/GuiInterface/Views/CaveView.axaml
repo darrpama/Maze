@@ -16,7 +16,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         
-        <controls:CaveControl Grid.Column="0" Grid.Row="0"
+        <controls:CaveControl Grid.Column="0" Grid.Row="0" Width="500" Height="500"
             Cave="{Binding Cave}" />
 
         <Button Grid.Column="0" Grid.Row="1"
@@ -62,9 +62,9 @@
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Value="{Binding Size}"
+                Value="{Binding LifeLimit}"
                 Minimum="1"
-                Maximum="{Binding LifeLimit, Mode=OneWay}"
+                Maximum="9"
                 Increment="1"
                 FontSize="10">
             </NumericUpDown>
@@ -83,16 +83,17 @@
                 VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center"
-                Value="{Binding Size}"
+                Value="{Binding DeathLimit}"
                 Minimum="1"
-                Maximum="{Binding DeathLimit, Mode=OneWay}"
+                Maximum="9"
                 Increment="1"
                 FontSize="10">
             </NumericUpDown>
         </Grid>
         
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="3" ColumnDefinitions="*,*">
             <Button
+                    Grid.Column="0"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
@@ -101,6 +102,7 @@
             </Button>
             
             <Button
+                    Grid.Column="1"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
