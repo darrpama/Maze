@@ -20,6 +20,7 @@ public class CaveControl : TemplatedControl
     {
         CaveGrid = e.NameScope.Find<Grid>("PartGrid");
         Cave.ChangeCave += OnCaveChanged;
+        Console.WriteLine("CaveControl.OnApplyTemplate");
     }
     
     private void OnCaveChanged(object? sender, CaveCell[,] caveCells)

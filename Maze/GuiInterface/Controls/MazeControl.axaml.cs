@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
@@ -20,6 +21,7 @@ public class MazeControl : TemplatedControl
         MazeGrid = e.NameScope.Find<Grid>("PART_Grid");
         Maze.ChangeMaze += OnMazeChanged;
         Maze.ChangePath += OnMazePathChanged;
+        Console.WriteLine("MazeControl.OnApplyTemplate");
     }
 
     private void OnMazePathChanged(object? sender, IList<MazePoint> path)
