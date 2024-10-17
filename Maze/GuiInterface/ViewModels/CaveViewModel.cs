@@ -3,6 +3,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Avalonia.Controls;
 using CaveModel;
 using Common.NumbersGenerator;
 using ReactiveUI;
@@ -28,8 +29,6 @@ public class CaveViewModel : ViewModelBase
         set => this.RaiseAndSetIfChanged(ref _caveCells, value);
     }
 
-    public int MaxSize { get; } = 50;
-    public int Size { get; set; }
     
     public ReactiveCommand<Unit, Unit> GenerateCaveCommand { get; }
     
@@ -52,11 +51,16 @@ public class CaveViewModel : ViewModelBase
 
     private void _onCaveChanged(object? cave, CaveCell[,] cells)
     {
+        Console.WriteLine("Cave changed");
         CaveCells = cells;
     }
 
     private void GenerateCave()
     {
+        Cave.Cols = Size;
+        Cave.Rows = Size;
+        Cave.LifeLimit = LifeLimit;
+        Cave.DeathLimit = DeathLimit;
         Cave.GenerateInitial(new RandomGenerator(new Random()));
     }
 
@@ -68,7 +72,9 @@ public class CaveViewModel : ViewModelBase
     
     public Interaction<string?, string?> ExportCaveInteraction => _exportCaveInteraction;
     public int LifeLimit { get; }
-    public int DeadLimit { get; }
+    public int DeathLimit { get; }
+    public int MaxSize { get; } = 50;
+    public int Size { get; set; }
 
     private async Task ImportCave()
     {

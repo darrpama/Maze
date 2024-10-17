@@ -15,13 +15,11 @@ public class MazeControl : TemplatedControl
 {
     private Grid? MazeGrid { get; set; }
 
-
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         MazeGrid = e.NameScope.Find<Grid>("PART_Grid");
         Maze.ChangeMaze += OnMazeChanged;
         Maze.ChangePath += OnMazePathChanged;
-        Console.WriteLine("MazeControl.OnApplyTemplate");
     }
 
     private void OnMazePathChanged(object? sender, IList<MazePoint> path)

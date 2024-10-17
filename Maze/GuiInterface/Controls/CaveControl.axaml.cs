@@ -20,7 +20,6 @@ public class CaveControl : TemplatedControl
     {
         CaveGrid = e.NameScope.Find<Grid>("PartGrid");
         Cave.ChangeCave += OnCaveChanged;
-        Console.WriteLine("CaveControl.OnApplyTemplate");
     }
     
     private void OnCaveChanged(object? sender, CaveCell[,] caveCells)
@@ -28,8 +27,10 @@ public class CaveControl : TemplatedControl
         if (Cave.Cells is null) return;
         _clearCaveUi();
         _defineRowsAndColsUi();
+        Console.WriteLine("Flag");
         
         var rectangles = _getRectangles();
+        Console.WriteLine("Rectangles");
         _drawRectanglesUi(rectangles);
     }
 
@@ -40,8 +41,11 @@ public class CaveControl : TemplatedControl
 
     private List<Control> _getRectangles()
     {
+        Console.WriteLine("GetRectangles");
         var rectangles = new List<Control>();
-        for (var row = 0; row < Cave.Cells!.GetLength(0); row++)
+        Console.WriteLine(Cave.Cells.GetLength(0));
+        Console.WriteLine(Cave.Cells.GetLength(1));
+        for (var row = 0; row < Cave.Cells.GetLength(0); row++)
         {
             for (var col = 0; col < Cave.Cells.GetLength(1); col++)
             {
@@ -50,9 +54,11 @@ public class CaveControl : TemplatedControl
                 Grid.SetRow(rect, row);
                 Grid.SetColumn(rect, col);
                 rectangles.Add(rect);
+                Console.WriteLine("Rectangle " + row + ", " + col);
             }
         }
         
+        Console.WriteLine("GetRectangles2");
         return rectangles;
     }
 

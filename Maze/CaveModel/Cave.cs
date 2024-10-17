@@ -87,6 +87,7 @@ public class Cave
                 Cells[row, col].SetAlive(generator.NextBool());
             }
         }
+        OnChangeCave(Cells);
     }
 
     public void Step()
