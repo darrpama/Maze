@@ -67,7 +67,9 @@ public class CaveViewModel : ViewModelBase
     public Interaction<string?, string?> ImportCaveInteraction => _importCaveInteraction;
     
     public Interaction<string?, string?> ExportCaveInteraction => _exportCaveInteraction;
-    
+    public int LifeLimit { get; }
+    public int DeadLimit { get; }
+
     private async Task ImportCave()
     {
         var importString = await _importCaveInteraction.Handle(null);
