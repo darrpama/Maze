@@ -27,10 +27,8 @@ public class CaveControl : TemplatedControl
         if (Cave.Cells is null) return;
         _clearCaveUi();
         _defineRowsAndColsUi();
-        Console.WriteLine("Flag");
         
-        var rectangles = _getRectangles();
-        Console.WriteLine("Rectangles");
+        var rectangles = _getRectangles(caveCells);
         _drawRectanglesUi(rectangles);
     }
 
@@ -39,17 +37,17 @@ public class CaveControl : TemplatedControl
         Dispatcher.UIThread.Post(() => { CaveGrid!.Children.AddRange(rectangles); });
     }
 
-    private List<Control> _getRectangles()
+    private List<Control> _getRectangles(CaveCell[,] cells)
     {
         Console.WriteLine("GetRectangles");
         var rectangles = new List<Control>();
-        Console.WriteLine(Cave.Cells.GetLength(0));
-        Console.WriteLine(Cave.Cells.GetLength(1));
-        for (var row = 0; row < Cave.Cells.GetLength(0); row++)
+        Console.WriteLine(cells.GetLength(0));
+        Console.WriteLine(cells.GetLength(1));
+        for (var row = 0; row < cells.GetLength(0); row++)
         {
-            for (var col = 0; col < Cave.Cells.GetLength(1); col++)
+            for (var col = 0; col < cells.GetLength(1); col++)
             {
-                var cell = Cave.Cells[row, col];
+                var cell = cells[row, col];
                 var rect = new CaveCellControl(row, col, cell.IsAlive);
                 Grid.SetRow(rect, row);
                 Grid.SetColumn(rect, col);

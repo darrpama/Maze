@@ -76,6 +76,7 @@ public class MazeViewModel: ViewModelBase
     
     private void GenerateMaze()
     {
+        Console.WriteLine("Generating maze...");
         Maze.Generate(Rows, Columns);
     }
 

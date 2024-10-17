@@ -13,15 +13,15 @@ public class CaveCellControl : TemplatedControl
     {
         Row = row;
         Col = col;
-        IsCircleVisible = isAlive;
+        IsCellVisible = isAlive;
     }
     
-    public bool IsCircleVisible
+    public bool IsCellVisible
     {
-        get => GetValue(IsCircleVisibleProperty);
-        set => SetValue(IsCircleVisibleProperty, value);
+        get => GetValue(IsCellVisibleProperty);
+        set => SetValue(IsCellVisibleProperty, value);
     }
     
-    public static readonly StyledProperty<bool> IsCircleVisibleProperty =
-        AvaloniaProperty.Register<CaveCellControl, bool>(nameof(IsCircleVisible), false);
+    public static readonly StyledProperty<bool> IsCellVisibleProperty =
+        AvaloniaProperty.Register<CaveCellControl, bool>(nameof(IsCellVisible), false);
 }

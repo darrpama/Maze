@@ -13,7 +13,7 @@
                         BorderBrush="Black"
                         BorderThickness="2">
                     <Ellipse Margin="1"
-                        IsVisible="{TemplateBinding IsCircleVisible}">
+                        IsVisible="{TemplateBinding IsCellVisible}">
                     </Ellipse>
                 </Border>
             </ControlTemplate>
