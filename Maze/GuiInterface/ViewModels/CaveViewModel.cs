@@ -32,9 +32,12 @@ public class CaveViewModel : ViewModelBase
     public int DeathLimit { get; set; }
     public int MaxSize { get; } = 50;
     public int Size { get; set; }
+    public int TimeStep { get; set; } = 100;
     
     
     public ReactiveCommand<Unit, Unit> GenerateCaveCommand { get; }
+    public ReactiveCommand<Unit, Unit> NextStepCommand { get; }
+    public ReactiveCommand<Unit, Unit> AutoCommand { get; }
     
     public ICommand ImportCaveFromFileCommand { get; }
     public ICommand ExportCaveToFileCommand { get; }
@@ -49,6 +52,8 @@ public class CaveViewModel : ViewModelBase
         Cave.ChangeCave += _onCaveChanged;
         
         GenerateCaveCommand = ReactiveCommand.Create(GenerateCave);
+        NextStepCommand = ReactiveCommand.Create(NextStep);
+        AutoCommand = ReactiveCommand.Create(AutoMod);
         ImportCaveFromFileCommand = ReactiveCommand.CreateFromTask(ImportCave);
         ExportCaveToFileCommand = ReactiveCommand.CreateFromTask(ExportCave);
         Size = MaxSize;
@@ -68,6 +73,16 @@ public class CaveViewModel : ViewModelBase
         Cave.LifeLimit = LifeLimit;
         Cave.DeathLimit = DeathLimit;
         Cave.GenerateInitial(new RandomGenerator(new Random()));
+    }
+
+    private void NextStep()
+    {
+        Cave.Step();
+    }
+
+    private void AutoMod()
+    {
+        
     }
 
     private readonly Interaction<string?, string?> _importCaveInteraction;

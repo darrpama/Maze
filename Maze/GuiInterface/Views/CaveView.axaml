@@ -19,12 +19,47 @@
         <controls:CaveControl Grid.Column="0" Grid.Row="0" Width="500" Height="500"
             Cave="{Binding Cave}" />
 
-        <Button Grid.Column="0" Grid.Row="1"
-                HorizontalAlignment="Stretch"
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*">
+            <Button Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding GenerateCaveCommand}">
+                Generate cave
+            </Button>
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding NextStepCommand}">
+                Next step
+            </Button>
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding AutoCommand}">
+                Auto mode
+            </Button>
+            
+            <TextBlock
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15">
+                Timestep, ms
+            </TextBlock>
+
+            <NumericUpDown
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
                 HorizontalContentAlignment="Center"
-                Command="{Binding GenerateCaveCommand}">
-            Generate cave
-        </Button>
+                VerticalContentAlignment="Center"
+                Value="{Binding TimeStep}"
+                Minimum="100"
+                Maximum="5000"
+                Increment="100"
+                FontSize="10">
+            </NumericUpDown>
+        </Grid>
         
         <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*,*,*,*,*,*">
             <TextBlock
