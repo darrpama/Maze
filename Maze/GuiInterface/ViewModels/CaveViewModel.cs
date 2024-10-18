@@ -3,13 +3,13 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Avalonia.Controls;
-using CaveModel;
+using Avalonia.Threading;
 using Common.NumbersGenerator;
 using ReactiveUI;
 
 namespace GuiInterface.ViewModels;
 
+using System.Threading;
 using CaveModel;
 
 public class CaveViewModel : ViewModelBase
@@ -32,7 +32,13 @@ public class CaveViewModel : ViewModelBase
     public int DeathLimit { get; set; }
     public int MaxSize { get; } = 50;
     public int Size { get; set; }
-    public int TimeStep { get; set; } = 100;
+    public int TimeStep
+    {
+        get => _timeStep;
+        set => this.RaiseAndSetIfChanged(ref _timeStep, value);
+    }
+    private int _timeStep = 100;
+    private bool _isAutoModeEnabled;
     
     
     public ReactiveCommand<Unit, Unit> GenerateCaveCommand { get; }
@@ -79,10 +85,27 @@ public class CaveViewModel : ViewModelBase
     {
         Cave.Step();
     }
+    
+    private async Task NextStepDelayed()
+    {
+        while (_isAutoModeEnabled)
+        {
+            Cave.Step();
+            await Task.Delay(_timeStep);
+        }
+    }
 
     private void AutoMod()
     {
-        
+        if (!_isAutoModeEnabled)
+        {
+            _isAutoModeEnabled = true;
+            Dispatcher.UIThread.Post(() => NextStepDelayed(), DispatcherPriority.Background);
+        }
+        else
+        {
+            _isAutoModeEnabled = false;
+        }
     }
 
     private readonly Interaction<string?, string?> _importCaveInteraction;
