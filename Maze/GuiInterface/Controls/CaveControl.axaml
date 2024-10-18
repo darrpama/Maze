@@ -9,7 +9,7 @@
     <Style Selector="controls|CaveControl">
         <Setter Property="Template">
             <ControlTemplate>
-                <Border BorderBrush="Black" BorderThickness="2">
+                <Border BorderBrush="Black" BorderThickness="1">
                     <Grid x:Name="PartGrid">
                     </Grid>
                 </Border>

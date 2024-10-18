@@ -1,3 +1,4 @@
+using System;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -16,21 +17,14 @@ public class CaveCellControl : TemplatedControl
         Row = row;
         Col = col;
         Cell = cell;
+        IsVisible = cell.IsAlive;
         Cell.AliveHasSet += OnAliveHasSet;
     }
 
     private void OnAliveHasSet(object? sender, bool e)
     {
         var cell = sender as CaveCell;
-        IsCellVisible = cell.IsAlive;
+        IsVisible = cell.IsAlive;
     }
 
-    public bool IsCellVisible
-    {
-        get => GetValue(IsCellVisibleProperty);
-        set => SetValue(IsCellVisibleProperty, value);
-    }
-    
-    public static readonly StyledProperty<bool> IsCellVisibleProperty =
-        AvaloniaProperty.Register<CaveCellControl, bool>(nameof(IsCellVisible), false);
 }

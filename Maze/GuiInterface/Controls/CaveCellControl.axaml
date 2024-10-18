@@ -11,10 +11,11 @@
             <ControlTemplate>
                 <Border Background="{DynamicResource ButtonBackground}"
                         BorderBrush="Black"
-                        BorderThickness="2">
-                    <Ellipse Margin="1"
-                        IsVisible="{TemplateBinding IsCellVisible}">
-                    </Ellipse>
+                        BorderThickness="1"
+                        >
+                    <Canvas Background="Black"
+                    IsVisible="{TemplateBinding IsVisible}">
+                    </Canvas>
                 </Border>
             </ControlTemplate>
         </Setter>
