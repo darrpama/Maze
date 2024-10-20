@@ -4,19 +4,14 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Avalonia.Controls;
 using Common.NumbersGenerator;
-using MazeModel.Exporters;
-using MazeModel.Importers;
 using MazeModel.Maze;
-using MazeModel.MazeGenerator;
 using ReactiveUI;
 
 namespace GuiInterface.ViewModels;
 
 public class MazeViewModel: ViewModelBase
 {
-    private Maze _maze;
     public Maze Maze
     {
         get;

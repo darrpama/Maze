@@ -14,7 +14,6 @@ using CaveModel;
 
 public class CaveViewModel : ViewModelBase
 {
-    private Cave _cave;
     public Cave Cave
     {
         get;
