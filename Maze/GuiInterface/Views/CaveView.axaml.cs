@@ -28,7 +28,7 @@ public partial class CaveView : ReactiveUserControl<CaveViewModel>
             .OpenFilePickerAsync(
                 new FilePickerOpenOptions
                 {
-                    Title = "Open Maze File",
+                    Title = "Open Cave File",
                     AllowMultiple = false,
                     FileTypeFilter = new[]
                     {
@@ -63,7 +63,7 @@ public partial class CaveView : ReactiveUserControl<CaveViewModel>
             .SaveFilePickerAsync(
                 new FilePickerSaveOptions
                 {
-                    Title = "Save Maze File",
+                    Title = "Save Cave File",
                     FileTypeChoices = new[]
                     {
                         new FilePickerFileType("txt")

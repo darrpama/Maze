@@ -3,7 +3,7 @@ using MazeModel.MazeGenerator;
 
 namespace MazeModel.Exporters;
 
-public interface IMazeExport
+public interface IMazeExporter
 {
-    public void Export(MazePoint[,] maze);
+    public string Export(MazePoint[,] maze);
 }

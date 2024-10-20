@@ -61,8 +61,8 @@ public class CaveViewModel : ViewModelBase
         AutoCommand = ReactiveCommand.Create(AutoMod);
         ImportCaveFromFileCommand = ReactiveCommand.CreateFromTask(ImportCave);
         ExportCaveToFileCommand = ReactiveCommand.CreateFromTask(ExportCave);
-        _importCaveInteraction = new Interaction<string?, string?>();
-        _exportCaveInteraction = new Interaction<string?, string?>();
+        ImportCaveInteraction = new Interaction<string?, string?>();
+        ExportCaveInteraction = new Interaction<string?, string?>();
         Size = MaxSize;
         LifeLimit = 3;
         DeathLimit = 3;
@@ -109,17 +109,13 @@ public class CaveViewModel : ViewModelBase
         }
     }
 
-    private readonly Interaction<string?, string?> _importCaveInteraction;
-    
-    private readonly Interaction<string?, string?> _exportCaveInteraction;
+    public Interaction<string?, string?> ImportCaveInteraction { get; }
 
-    public Interaction<string?, string?> ImportCaveInteraction => _importCaveInteraction;
-    
-    public Interaction<string?, string?> ExportCaveInteraction => _exportCaveInteraction;
+    public Interaction<string?, string?> ExportCaveInteraction { get; }
 
     private async Task ImportCave()
     {
-        var importString = await _importCaveInteraction.Handle(null);
+        var importString = await ImportCaveInteraction.Handle(null);
         if (importString == null) return;
         Cave.ImportString(importString);
     }
@@ -128,7 +124,7 @@ public class CaveViewModel : ViewModelBase
     {
         if (Cave.Cells is null) return;
         var caveString = Cave.ExportString();
-        await _exportCaveInteraction.Handle(caveString);
+        await ExportCaveInteraction.Handle(caveString);
     }
     
 }

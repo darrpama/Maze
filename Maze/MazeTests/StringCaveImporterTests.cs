@@ -1,5 +1,6 @@
 using CaveModel;
 using CaveModel.Exceptions;
+using CaveModel.Importers;
 
 namespace MazeTests;
 

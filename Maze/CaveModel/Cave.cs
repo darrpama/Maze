@@ -1,3 +1,5 @@
+using CaveModel.Exporters;
+using CaveModel.Importers;
 using Common.NumbersGenerator;
 
 namespace CaveModel;
@@ -62,10 +64,7 @@ public class Cave
     public CaveCell[,]? Cells
     {
         get => _caveCells;
-        private set
-        {
-            _caveCells = value;
-        }
+        private set => _caveCells = value;
     }
 
     private void RangeValidate(int value, int min, int max)
@@ -176,14 +175,14 @@ public class Cave
         Cells = importer.Import();
         Rows = Cells.GetLength(0);
         Cols = Cells.GetLength(1);
+        OnChangeCave(Cells);
     }
 
     public string ExportString()
     {
         if (Cells == null) throw new ArgumentNullException(nameof(Cells));
-        // var exporter = new CaveStringExporter();
-        // return exporter.Export(Cells);
-        return "Aboba";
+        var exporter = new CaveStringExporter();
+        return exporter.Export(Cells);
     }
 
     public static Cave FromString(string caveString)
