@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Avalonia.Threading;
 using Common.NumbersGenerator;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using ReactiveUI;
 
 namespace GuiInterface.ViewModels;
@@ -115,9 +117,17 @@ public class CaveViewModel : ViewModelBase
 
     private async Task ImportCave()
     {
-        var importString = await ImportCaveInteraction.Handle(null);
-        if (importString == null) return;
-        Cave.ImportString(importString);
+        try
+        {
+            var importString = await ImportCaveInteraction.Handle(null);
+            if (importString == null) return;
+            Cave.ImportString(importString);
+        }
+        catch (Exception e)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Error", e.Message, ButtonEnum.Ok);
+            var result = await box.ShowAsync();
+        }
     }
 
     private async Task ExportCave()

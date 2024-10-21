@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Common.NumbersGenerator;
 using MazeModel.Maze;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using ReactiveUI;
 
 namespace GuiInterface.ViewModels;
@@ -71,7 +73,6 @@ public class MazeViewModel: ViewModelBase
     
     private void GenerateMaze()
     {
-        Console.WriteLine("Generating maze...");
         Maze.Generate(Rows, Columns);
     }
 
@@ -86,10 +87,18 @@ public class MazeViewModel: ViewModelBase
 
     private async Task ImportMaze()
     {
-        var importString = await _importMazeInteraction.Handle(null);
-        if (importString == null)
-            return;
-        Maze.ImportString(importString);
+        try
+        {
+            var importString = await _importMazeInteraction.Handle(null);
+            if (importString == null)
+                return;
+            Maze.ImportString(importString);
+        }
+        catch (Exception e)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Error", e.Message, ButtonEnum.Ok);
+            var result = await box.ShowAsync();
+        }
     }
     
     private async Task ExportMaze()
