@@ -46,4 +46,70 @@ public class MazeModelTests
             }
         }
     }
+    
+    [Fact]
+    public void Given_Generate_When_Call_BuildPath_Then_Return_Right_Path()
+    {
+        var numbers = new[]
+        {
+            0, 1, 0, 0, 1, 1, 0, 1, 0, 0,
+            0, 0, 1, 1, 0, 1, 0, 1, 1, 0,
+            1, 0, 1, 1, 0, 0, 0, 0, 0, 1,
+            0, 1, 1, 0, 0, 1, 0, 1, 1, 0,
+            0, 0, 1, 0, 1, 1, 1, 0
+        };
+
+        IGenerator generator = new SequenceGenerator(numbers);
+        var mazeGenerator = new MazeGenerator(generator);
+        var result = mazeGenerator.Generate(4, 4);
+
+        var expected = new MazePoint[,]
+        {
+            { new(false, false, 0, 0), new(true, true, 0, 1), new(true, false, 0, 2), new(false, true, 0, 3) },
+            { new(false, true, 1, 0), new(false, false, 1, 1), new(true, false, 1, 2), new(true, true, 1, 3) },
+            { new(true, false, 2, 0), new(false, true, 2, 1), new(false, false, 2, 2), new(true, true, 2, 3) },
+            { new(true, false, 3, 0), new(true, false, 3, 1), new(true, false, 3, 2), new(true, true, 3, 3) },
+        };
+
+        Assert.Equal(4, result.GetLength(0));
+        Assert.Equal(4, result.GetLength(1));
+        for (var row = 0; row < result.GetLength(0); row++)
+        {
+            for (var col = 0; col < result.GetLength(1); col++)
+            {
+                Assert.Equal(
+                    expected[row, col],
+                    result[row, col],
+                    (c1, c2) => c1.Down.Equals(c2.Down) &&
+                                c1.Right.Equals(c2.Right) &&
+                                c1.Row.Equals(c2.Row) &&
+                                c1.Col.Equals(c2.Col));
+            }
+        }
+
+        generator = new SequenceGenerator(numbers);
+        Maze maze = new Maze(generator);
+        maze.Generate(4, 4);
+        maze.StartPoint = maze.Points[0, 0];
+        maze.EndPoint = maze.Points[3, 3];
+        maze.BuildPath();
+        List<MazePoint>? correct_path = new List<MazePoint>
+        {
+            new(false, false, 0, 0),
+            new(false, false, 1, 0),
+            new(false, false, 2, 0),
+            new(false, false, 2, 1),
+            new(false, false, 3, 1),
+            new(false, false, 3, 2),
+            new(false, false, 3, 3),
+        };
+    
+        for (var cell = 0; cell < maze.Path.Count; cell++)
+        {
+            Assert.Equal(
+                correct_path[cell],
+                maze.Path[cell],
+                (c1, c2) => c1.Row == c2.Row && c1.Col == c2.Col);
+        }
+    }
 }

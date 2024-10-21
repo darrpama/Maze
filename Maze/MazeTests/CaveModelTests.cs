@@ -79,13 +79,5 @@ public class CaveModelTests
         cave.GenerateInitial(generator);
         Assert.Equal(4, cave.Cells?.GetLength(0));
         Assert.Equal(4, cave.Cells?.GetLength(1));
-        // for (var i = 0; i < cave.Cells?.GetLength(0); i++)
-        // {
-        //     for (var j = 0; j < cave.Cells?.GetLength(1); j++)
-        //     {
-        //         Console.Write($"{cave.Cells[i, j].IsAlive}");
-        //     }
-        //     Console.WriteLine();
-        // }
     }
 }
