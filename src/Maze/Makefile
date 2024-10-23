@@ -25,16 +25,8 @@ uninstall:
 	cd $(INSTALLDIR) && ls -la && rm $(INSTALLDIR)$(EXECUTABLE)
 
 dist:
-#	rm -rf $(DISTDIR)
-#	mkdir $(DISTDIR)
-#	mkdir $(DISTDIR)/src
-#	cp -r $(PROJECTDIR) dvi.md Makefile $(DISTDIR)/src/
-#	tar cvzf $(DISTDIR).tgz $(DISTDIR)
-#	rm -rf $(DISTDIR)
 
 check:
-#	clang-format -n --style="Google" $(SOURCES) $(HEADERS)
-#	cppcheck --std=c++17 --language=c++ --enable=all --suppress=unusedStructMember --suppress=missingInclude $(SOURCES) $(HEADERS)
 
 
 $(STATICLIB): $(OBJECTS)
