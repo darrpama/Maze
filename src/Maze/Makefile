@@ -1,6 +1,7 @@
 PROJECTDIR = ./
 BUILDDIR = ../mazebuild
 DISTDIR = $(BUILDDIR)/GuiInterface/bin/Release/*/*/publish/
+TMPDIR = ../todist
 INSTALLDIR = $(PROJECTDIR)
 EXECUTABLE = Maze
 
@@ -24,10 +25,11 @@ install: build
 uninstall:
 	cd $(INSTALLDIR) && ls -la && rm $(INSTALLDIR)$(EXECUTABLE)
 
-dist:
-
-check:
-
+dist: clean
+	mkdir $(TMPDIR)
+	cp -r $(PROJECTDIR) $(TMPDIR)
+	cd .. && tar -czvf distributive.tgz todist
+	rm -rf $(TMPDIR)
 
 $(STATICLIB): $(OBJECTS)
 	ar rcs $(STATICLIB) $^
