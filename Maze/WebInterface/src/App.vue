@@ -1,14 +1,11 @@
 <script setup>
-import Maze from "@/components/Maze.vue";
+import Maze from '@/components/Maze.vue'
 </script>
-
 
 <template>
   <main>
-    <Maze/>
+    <Maze />
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
