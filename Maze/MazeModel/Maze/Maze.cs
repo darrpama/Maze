@@ -10,6 +10,8 @@ namespace MazeModel.Maze;
 
 public class Maze
 {
+    public int Rows => Points?.GetLength(0) ?? 0;
+    public int Cols => Points?.GetLength(1) ?? 0;
     public event EventHandler<MazePoint[,]>? ChangeMaze;
     public event EventHandler<IList<MazePoint>> ChangePath;
 
@@ -35,7 +37,7 @@ public class Maze
         private set
         {
             _mazePoints = value;
-
+            ChainPoints();
             if (_mazePoints != null) OnChangeMaze(_mazePoints);
         }
     }
@@ -58,7 +60,6 @@ public class Maze
     public void Generate(int rows, int cols)
     {
         Points = Generator.Generate(rows, cols);
-        ChainPoints();
     }
 
     private void ChainPoints()
@@ -172,13 +173,26 @@ public class Maze
     {
         var importer = new StringMazeImporter(importString);
         Points = importer.Import();
-        ChainPoints();
+    }
+    
+    public void ImportList(List<List<MazePointWalls>> importList)
+    {
+        var importer = new ListMazeImporter(importList);
+        Points = importer.Import();
     }
 
     public string ExportString()
     {
         if (Points is null) throw new ArgumentNullException(nameof(Points));
         var exporter = new MazeStringExporter();
+        
+        return exporter.Export(Points);
+    }
+    
+    public List<List<MazePointWalls>> ExportList()
+    {
+        if (Points is null) throw new ArgumentNullException(nameof(Points));
+        var exporter = new MazeListExporter();
         
         return exporter.Export(Points);
     }
