@@ -1,33 +1,20 @@
 using CaveModel.Exceptions;
+using CaveModel.Exporters;
 
-namespace CaveModel;
+namespace CaveModel.Importers;
 
-public class StringCaveImporter
+public class CaveImporter(string stringCave) : ICaveImporter
 {
-    private string _stringCave;
-
-    public StringCaveImporter(string stringCave)
-    {
-        _stringCave = stringCave;
-    }
-
     public CaveCell[,] Import()
     {
-        var linesEnumerator = _stringCave.Split("\n").ToList().GetEnumerator();
+        var linesEnumerator = stringCave.Split("\n").ToList().GetEnumerator();
         linesEnumerator.MoveNext();
-        while (linesEnumerator.Current.Trim() == "")
-        {
-            linesEnumerator.MoveNext();
-        }
 
         var sizeLine = linesEnumerator.Current;
         var size = GetSize(sizeLine);
-        if (
-            size.Item1 > 50 || size.Item2 > 50 ||
-            size.Item1 < 1 || size.Item2 < 1
-            )
+        if (size.Item1 > 50 || size.Item2 > 50)
         {
-            throw new ImportCaveError("The file size is incorrect (must be from 1 to 50).");
+            throw new ImportCaveError();
         }
 
         var cave = new CaveCell[size.Item1, size.Item2];
@@ -37,15 +24,9 @@ public class StringCaveImporter
         while (linesEnumerator.MoveNext())
         {
             var line = linesEnumerator.Current;
-            if (line.Trim() == "")
-            {
-                continue;
-            }
-
             ParseLine(cave, line, lineCounter);
             lineCounter++;
         }
-
 
         return cave;
     }
@@ -65,23 +46,22 @@ public class StringCaveImporter
     {
         var numbers = line.Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
         if (cave.GetLength(1) != numbers.Length)
-            throw new ImportCaveError("Length of line is incorrect.");
+            throw new ImportCaveError();
         for (var i = 0; i < cave.GetLength(1); i++)
         {
             if (!(numbers[i] == 0 || numbers[i] == 1))
-                throw new ImportCaveError("Value must be 0 or 1.");
-            var boolNumber = numbers[i] == 1;
+                throw new ImportCaveError();
             
+            var boolNumber = numbers[i] == 1;
             cave[lineIndex, i].SetAlive(boolNumber);
         }
     }
 
     private (int, int) GetSize(string sizeLine)
     {
-        var values = sizeLine.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var values = sizeLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (values.Length != 2)
-            throw new ImportCaveError("String cave size is invalid.");
+            throw new ImportCaveError();
         return (int.Parse(values[0]), int.Parse(values[1]));
     }
-
 }

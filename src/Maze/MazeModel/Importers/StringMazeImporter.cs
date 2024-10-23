@@ -4,18 +4,11 @@ using MazeModel.MazeGenerator;
 
 namespace MazeModel.Importers;
 
-public class StringMazeImporter : IMazeImporter
+public class StringMazeImporter(string stringMaze) : IMazeImporter
 {
-    private string _stringMaze;
-
-    public StringMazeImporter(string stringMaze)
-    {
-        _stringMaze = stringMaze;
-    }
-
     public MazePoint[,] Import()
     {
-        var linesEnumerator = _stringMaze.Split("\n").ToList().GetEnumerator();
+        var linesEnumerator = stringMaze.Split("\n").ToList().GetEnumerator();
         linesEnumerator.MoveNext();
 
         var sizeLine = linesEnumerator.Current;

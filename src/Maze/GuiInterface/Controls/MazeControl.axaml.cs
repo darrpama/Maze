@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
@@ -13,7 +14,6 @@ namespace GuiInterface.Controls;
 public class MazeControl : TemplatedControl
 {
     private Grid? MazeGrid { get; set; }
-
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {

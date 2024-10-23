@@ -4,19 +4,16 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Avalonia.Controls;
 using Common.NumbersGenerator;
-using MazeModel.Exporters;
-using MazeModel.Importers;
 using MazeModel.Maze;
-using MazeModel.MazeGenerator;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 using ReactiveUI;
 
 namespace GuiInterface.ViewModels;
 
 public class MazeViewModel: ViewModelBase
 {
-    private Maze _maze;
     public Maze Maze
     {
         get;
@@ -90,10 +87,18 @@ public class MazeViewModel: ViewModelBase
 
     private async Task ImportMaze()
     {
-        var importString = await _importMazeInteraction.Handle(null);
-        if (importString == null)
-            return;
-        Maze.ImportString(importString);
+        try
+        {
+            var importString = await _importMazeInteraction.Handle(null);
+            if (importString == null)
+                return;
+            Maze.ImportString(importString);
+        }
+        catch (Exception e)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Error", e.Message, ButtonEnum.Ok);
+            var result = await box.ShowAsync();
+        }
     }
     
     private async Task ExportMaze()

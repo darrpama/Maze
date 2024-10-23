@@ -1,9 +1,21 @@
+using CaveModel.Exporters;
+using CaveModel.Importers;
 using Common.NumbersGenerator;
 
 namespace CaveModel;
 
 public class Cave
 {
+
+    public Cave()
+    {
+        
+    }
+    public Cave(IGenerator generator)
+    {
+        GenerateInitial(generator);
+    }
+    
     private int _rows = 1;
     public int Rows
     {
@@ -48,14 +60,18 @@ public class Cave
         }
     }
     
-    public CaveCell[,]? Cells { get; private set; }
+    private CaveCell[,]? _caveCells;
+    public CaveCell[,]? Cells
+    {
+        get => _caveCells;
+        private set => _caveCells = value;
+    }
 
     private void RangeValidate(int value, int min, int max)
     {
         if (value < min || value > max)
             throw new ArgumentOutOfRangeException($"Value must be between {min} and {max}.");
     }
-
 
     public void GenerateInitial(IGenerator generator)
     {
@@ -69,6 +85,7 @@ public class Cave
                 Cells[row, col].SetAlive(generator.NextBool());
             }
         }
+        OnChangeCave(Cells);
     }
 
     public void Step()
@@ -158,6 +175,14 @@ public class Cave
         Cells = importer.Import();
         Rows = Cells.GetLength(0);
         Cols = Cells.GetLength(1);
+        OnChangeCave(Cells);
+    }
+
+    public string ExportString()
+    {
+        if (Cells == null) throw new ArgumentNullException(nameof(Cells));
+        var exporter = new CaveStringExporter();
+        return exporter.Export(Cells);
     }
 
     public static Cave FromString(string caveString)
@@ -165,5 +190,12 @@ public class Cave
         var cave = new Cave();
         cave.ImportString(caveString);
         return cave;
+    }
+    
+    public event EventHandler<CaveCell[,]>? ChangeCave;
+
+    private void OnChangeCave(CaveCell[,] cells)
+    {
+        ChangeCave?.Invoke(this, cells);
     }
 }

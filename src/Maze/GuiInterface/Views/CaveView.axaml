@@ -1,0 +1,149 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:GuiInterface.ViewModels"
+             xmlns:controls="clr-namespace:GuiInterface.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:CaveViewModel"
+             x:Class="GuiInterface.Views.CaveView">
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <controls:CaveControl Grid.Column="0" Grid.Row="0" Width="500" Height="500"
+            Cave="{Binding Cave}" />
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*,*,*,*">
+            <Button Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding GenerateCaveCommand}">
+                Generate cave
+            </Button>
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding NextStepCommand}">
+                Next step
+            </Button>
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Command="{Binding AutoCommand}">
+                Auto mode
+            </Button>
+            
+            <TextBlock
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15">
+                Timestep, ms
+            </TextBlock>
+
+            <NumericUpDown
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Value="{Binding TimeStep}"
+                Minimum="100"
+                Maximum="5000"
+                Increment="100"
+                FontSize="10">
+            </NumericUpDown>
+        </Grid>
+        
+        <Grid Grid.Column="0" Grid.Row="2" ColumnDefinitions="*,*,*,*,*,*">
+            <TextBlock
+                Grid.Column="0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15">
+                Size of cave
+            </TextBlock>
+
+            <NumericUpDown
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Value="{Binding Size}"
+                Minimum="1"
+                Maximum="{Binding MaxSize, Mode=OneWay}"
+                Increment="1"
+                FontSize="10">
+            </NumericUpDown>
+            
+            <TextBlock
+                Grid.Column="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15">
+                Life limit
+            </TextBlock>
+
+            <NumericUpDown
+                Grid.Column="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Value="{Binding LifeLimit}"
+                Minimum="1"
+                Maximum="9"
+                Increment="1"
+                FontSize="10">
+            </NumericUpDown>
+            
+            <TextBlock
+                Grid.Column="4"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="15">
+                Dead limit
+            </TextBlock>
+
+            <NumericUpDown
+                Grid.Column="5"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Value="{Binding DeathLimit}"
+                Minimum="1"
+                Maximum="9"
+                Increment="1"
+                FontSize="10">
+            </NumericUpDown>
+        </Grid>
+        
+        <Grid Grid.Row="3" ColumnDefinitions="*,*">
+            <Button
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ImportCaveFromFileCommand}">
+                Import
+            </Button>
+            
+            <Button
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ExportCaveToFileCommand}">
+                Export
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

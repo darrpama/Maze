@@ -13,5 +13,7 @@
         <FluentTheme />
         <StyleInclude Source="Controls/MazeControl.axaml"></StyleInclude>
         <StyleInclude Source="Controls/MazeCellControl.axaml"></StyleInclude>
+        <StyleInclude Source="Controls/CaveControl.axaml"></StyleInclude>
+        <StyleInclude Source="Controls/CaveCellControl.axaml"></StyleInclude>
     </Application.Styles>
 </Application>

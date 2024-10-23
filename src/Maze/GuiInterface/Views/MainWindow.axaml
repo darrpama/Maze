@@ -8,8 +8,12 @@
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="Maze"
-        Width="600"
-        Height="600">
+        Width="700"
+        Height="700"
+        MinHeight="700"
+        MaxHeight="700"
+        MinWidth="700"
+        MaxWidth="700">
         <TabControl>
             <TabItem Header="Maze"
                 Content="{Binding MazeContentViewModel}">

@@ -10,4 +10,8 @@
       <ProjectReference Include="..\Common\Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Importers\CaveImporter.cs" />
+    </ItemGroup>
+
 </Project>

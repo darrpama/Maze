@@ -4,7 +4,7 @@ using MazeModel.MazeGenerator;
 
 namespace MazeModel.Exporters;
 
-public class MazeStringExporter
+public class MazeStringExporter : IMazeExporter
 {
     public string Export(MazePoint[,] maze)
     {

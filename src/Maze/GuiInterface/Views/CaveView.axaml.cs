@@ -1,8 +1,6 @@
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.Platform.Storage;
 using Avalonia.ReactiveUI;
 using GuiInterface.ViewModels;
@@ -10,20 +8,19 @@ using ReactiveUI;
 
 namespace GuiInterface.Views;
 
-public partial class MazeView : ReactiveUserControl<MazeViewModel>
+public partial class CaveView : ReactiveUserControl<CaveViewModel>
 {
-    public MazeView()
+    public CaveView()
     {
         InitializeComponent();
         this.WhenActivated(d =>
         {
-            d(ViewModel!.ImportMazeInteraction.RegisterHandler(ImportMazeInteractionHandler));
-            d(ViewModel!.ExportMazeInteraction.RegisterHandler(ExportMazeInteractionHandler));
+            d(ViewModel!.ImportCaveInteraction.RegisterHandler(ImportCaveInteractionHandler));
+            d(ViewModel!.ExportCaveInteraction.RegisterHandler(ExportCaveInteractionHandler));
         });
     }
 
-
-    private async Task ImportMazeInteractionHandler(InteractionContext<string?, string?> context)
+    private async Task ImportCaveInteractionHandler(InteractionContext<string?, string?> context)
     {
         var topLevel = TopLevel.GetTopLevel(this);
 
@@ -31,7 +28,7 @@ public partial class MazeView : ReactiveUserControl<MazeViewModel>
             .OpenFilePickerAsync(
                 new FilePickerOpenOptions
                 {
-                    Title = "Open Maze File",
+                    Title = "Open Cave File",
                     AllowMultiple = false,
                     FileTypeFilter = new[]
                     {
@@ -57,9 +54,8 @@ public partial class MazeView : ReactiveUserControl<MazeViewModel>
 
         context.SetOutput(fileContent);
     }
-
-
-    private async Task ExportMazeInteractionHandler(InteractionContext<string?, string?> context)
+    
+    private async Task ExportCaveInteractionHandler(InteractionContext<string?, string?> context)
     {
         var topLevel = TopLevel.GetTopLevel(this);
 
@@ -67,7 +63,7 @@ public partial class MazeView : ReactiveUserControl<MazeViewModel>
             .SaveFilePickerAsync(
                 new FilePickerSaveOptions
                 {
-                    Title = "Save Maze File",
+                    Title = "Save Cave File",
                     FileTypeChoices = new[]
                     {
                         new FilePickerFileType("txt")
