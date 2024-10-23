@@ -31,8 +31,6 @@ dist: clean
 	cd .. && tar -czvf distributive.tgz todist
 	rm -rf $(TMPDIR)
 
-$(STATICLIB): $(OBJECTS)
-	ar rcs $(STATICLIB) $^
 
 .PHONY: clean
 clean:
