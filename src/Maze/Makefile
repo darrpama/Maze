@@ -35,3 +35,4 @@ dist: clean
 .PHONY: clean
 clean:
 	@rm -rf $(BUILDDIR)
+	@rm -rf $(TMPDIR)
