@@ -1,0 +1,7 @@
+@import './base.css';
+
+#app {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+}
