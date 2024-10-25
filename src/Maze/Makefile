@@ -7,9 +7,8 @@ EXECUTABLE = Maze
 
 all: test
 
-test: build
-	cd $(BUILDDIR)/MazeTests && dotnet test
-	echo $(DISTDIR)
+test:
+	cd $(BUILDDIR)/MazeTests && sudo -S dotnet test
 
 dvi:
 	open ./dvi.md
